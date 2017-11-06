@@ -1,0 +1,94 @@
+
+
+<?xml version="1.0" encoding="UTF-8"?>
+<query xmlns:yahoo="http://www.yahooapis.com/v1/base.rng"
+    yahoo:count="1" yahoo:created="2017-10-21T05:25:17Z" yahoo:lang="en-US">
+    <results>
+        <quote symbol="A">
+            <Ask/>
+            <AverageDailyVolume>1589940</AverageDailyVolume>
+            <Bid/>
+            <AskRealtime/>
+            <BidRealtime/>
+            <BookValue>14.31</BookValue>
+            <Change_PercentChange>+0.37 - +0.55%</Change_PercentChange>
+            <Change>+0.37</Change>
+            <Commission/>
+            <Currency>USD</Currency>
+            <ChangeRealtime/>
+            <AfterHoursChangeRealtime/>
+            <DividendShare>0.53</DividendShare>
+            <LastTradeDate>10/20/2017</LastTradeDate>
+            <TradeDate/>
+            <EarningsShare>1.40</EarningsShare>
+            <ErrorIndicationreturnedforsymbolchangedinvalid/>
+            <EPSEstimateCurrentYear>2.32</EPSEstimateCurrentYear>
+            <EPSEstimateNextYear>2.60</EPSEstimateNextYear>
+            <EPSEstimateNextQuarter>0.60</EPSEstimateNextQuarter>
+            <DaysLow>67.07</DaysLow>
+            <DaysHigh>67.53</DaysHigh>
+            <YearLow>42.92</YearLow>
+            <YearHigh>67.82</YearHigh>
+            <HoldingsGainPercent/>
+            <AnnualizedGain/>
+            <HoldingsGain/>
+            <HoldingsGainPercentRealtime/>
+            <HoldingsGainRealtime/>
+            <MoreInfo/>
+            <OrderBookRealtime/>
+            <MarketCapitalization>21.64B</MarketCapitalization>
+            <MarketCapRealtime/>
+            <EBITDA>1.02B</EBITDA>
+            <ChangeFromYearLow>24.33</ChangeFromYearLow>
+            <PercentChangeFromYearLow>+56.69%</PercentChangeFromYearLow>
+            <LastTradeRealtimeWithTime/>
+            <ChangePercentRealtime/>
+            <ChangeFromYearHigh>-0.57</ChangeFromYearHigh>
+            <PercebtChangeFromYearHigh>-0.84%</PercebtChangeFromYearHigh>
+            <LastTradeWithTime>4:01pm - &lt;b&gt;67.25&lt;/b&gt;</LastTradeWithTime>
+            <LastTradePriceOnly>67.25</LastTradePriceOnly>
+            <HighLimit/>
+            <LowLimit/>
+            <DaysRange>67.07 - 67.53</DaysRange>
+            <DaysRangeRealtime/>
+            <FiftydayMovingAverage>65.72</FiftydayMovingAverage>
+            <TwoHundreddayMovingAverage>60.40</TwoHundreddayMovingAverage>
+            <ChangeFromTwoHundreddayMovingAverage>6.85</ChangeFromTwoHundreddayMovingAverage>
+            <PercentChangeFromTwoHundreddayMovingAverage>+11.35%</PercentChangeFromTwoHundreddayMovingAverage>
+            <ChangeFromFiftydayMovingAverage>1.53</ChangeFromFiftydayMovingAverage>
+            <PercentChangeFromFiftydayMovingAverage>+2.33%</PercentChangeFromFiftydayMovingAverage>
+            <Name>Agilent Technologies, Inc.</Name>
+            <Notes/>
+            <Open>67.19</Open>
+            <PreviousClose>66.88</PreviousClose>
+            <PricePaid/>
+            <ChangeinPercent>+0.55%</ChangeinPercent>
+            <PriceSales>4.90</PriceSales>
+            <PriceBook>4.67</PriceBook>
+            <ExDividendDate>10/2/2017</ExDividendDate>
+            <PERatio>34.68</PERatio>
+            <DividendPayDate>10/25/2017</DividendPayDate>
+            <PERatioRealtime/>
+            <PEGRatio>2.67</PEGRatio>
+            <PriceEPSEstimateCurrentYear>28.99</PriceEPSEstimateCurrentYear>
+            <PriceEPSEstimateNextYear>25.87</PriceEPSEstimateNextYear>
+            <Symbol>A</Symbol>
+            <SharesOwned/>
+            <ShortRatio>1.72</ShortRatio>
+            <LastTradeTime>4:01pm</LastTradeTime>
+            <TickerTrend/>
+            <OneyrTargetPrice>71.31</OneyrTargetPrice>
+            <Volume>1506112</Volume>
+            <HoldingsValue/>
+            <HoldingsValueRealtime/>
+            <YearRange>42.92 - 67.82</YearRange>
+            <DaysValueChange/>
+            <DaysValueChangeRealtime/>
+            <StockExchange>NYQ</StockExchange>
+            <DividendYield>0.80</DividendYield>
+            <PercentChange>+0.55%</PercentChange>
+        </quote>
+    </results>
+</query>
+
+
