@@ -3,57 +3,73 @@ package me.theeninja.stocklookuptool.query;
 import com.google.gson.Gson;
 import me.theeninja.stocklookuptool.response.ResponseManager;
 import org.apache.commons.io.IOUtils;
+import org.apache.http.client.utils.URIBuilder;
 
 import java.io.*;
 import java.net.MalformedURLException;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class QueryManager {
 
-    public static ResponseManager.Data query(String symbol) {
+    // Quandl API Key = sweUCDwhgKDxco9dp_xJ
+    // Alpha Vantage API Key =  T2ALTQ2SGQIWBT3E
+    // Tradier
+    // Maximize B2 B Niches App
+    // Access token: FNbyAebHEKHISI2arduyLSXsZV89
+
+    private String symbol;
+
+    private final static Logger logger = Logger.getLogger(QueryManager.class.getSimpleName());
+    private final static String BASE_URL = "https://query.yahooapis.com/v1/public/yql";
+
+    public QueryManager(String symbol) {
+        this.symbol = symbol;
+    }
+
+    public ResponseManager.Data query() {
         try {
-            String queryString = generateQueryString(symbol);
+            String queryString = this.generateQueryString();
 
-            String baseUrl = "https://query.yahooapis.com/v1/public/yql?q=";
-            String endUrl = "&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&callback=";
+            URIBuilder uriBuilder = new URIBuilder(BASE_URL);
+            uriBuilder.addParameter("q", queryString);
+            uriBuilder.addParameter("format", "json");
+            uriBuilder.addParameter("env", "store://datatables.org/alltableswithkeys");
 
-            String fullUrlStr = null;
+            String fullUrlString = uriBuilder.toString();
+            URL fullUrl = new URL(fullUrlString);
 
-            fullUrlStr = baseUrl + URLEncoder.encode(queryString, "UTF-8") + endUrl;
-
-            URL fullUrl = null;
-
-            fullUrl = new URL(fullUrlStr);
-
-            ResponseManager.Data data;
+            logger.log(Level.INFO, "Generted URL for query: {0}", fullUrlString);
 
             InputStream is = fullUrl.openStream();
 
             Gson gson = new Gson();
             String jsonString = IOUtils.toString(is, "UTF-8");
-            data = gson.fromJson(jsonString, ResponseManager.Data.class);
+            ResponseManager.Data data = gson.fromJson(jsonString, ResponseManager.Data.class);
 
             IOUtils.closeQuietly(is);
 
             return data;
-        } catch (IOException e) {
+        } catch (IOException | URISyntaxException e) {
             e.printStackTrace();
         }
         return null;
     }
 
-    private static String generateQueryString(String symbol) {
+    private String generateQueryString() {
 
-        return "select * from yahoo.finance.quotes where symbol = " + "\"" + symbol + "\"";
+        return "select * from yahoo.finance.quotes where symbol = \"" + symbol + "\"";
     }
 
     public static List<String> getAllSymbols(String stockExchange) {
         try {
-            URL url = new URL("http://www.nasdaq.com/screening/companies-by-industry.aspx?exchange=" + stockExchange + "&render=download");
+            URL url = new URL(URLEncoder.encode("http://www.nasdaq.com/screening/companies-by-industry.aspx?exchange=" + stockExchange + "&render=download", "UTF-8"));
 
             try (InputStream is = url.openStream()) {
 
@@ -62,7 +78,7 @@ public class QueryManager {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        } catch (MalformedURLException malformedURLException) {
+        } catch (MalformedURLException | UnsupportedEncodingException malformedURLException) {
             malformedURLException.printStackTrace();
         }
         return null;
@@ -76,7 +92,7 @@ public class QueryManager {
         BufferedReader br = new BufferedReader(new InputStreamReader(is));
 
         try {
-            String disregardFirstLine = br.readLine();
+            br.readLine(); // disregards first line
 
             String line;
             while ((line = br.readLine()) != null) {

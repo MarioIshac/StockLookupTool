@@ -1,1 +1,41 @@
+/*
+Order of 4 = top right bottom left
+ */
+#borderPane {
+    -fx-background-color: azure;
+}
 
+/* The Navigation Labels */
+#borderPane #topApplicationNavigation {
+    -fx-background-color: whitesmoke;
+    -fx-border-color: black black black black;
+    -fx-border-width: 0px 0px 1px 0px;
+}
+
+#borderPane #topApplicationNavigation .label {
+    -fx-font-size: 20px;
+    -fx-padding: 20px 20px 20px 20px;
+}
+
+#borderPane #topApplicationNavigation .label:hover {
+    -fx-background-color: palegreen;
+}
+
+#borderPane #topApplicationNavigation .label #settings {
+    -fx-border-color: black black black black;
+    -fx-border-width: 0px 1px 0px 0px;
+}
+
+/* The Favorite Stock List */
+#borderPane #verticalStockList {
+    -fx-background-color: lightgray;
+}
+
+#borderPane #verticalStockList #favoriteStocksLabel {
+    -fx-font-size: 16px;
+    -fx-padding: 5px;
+}
+
+#borderPane #verticalStockList #addFavoriteStockInput {
+    -fx-max-width: 100px;
+}

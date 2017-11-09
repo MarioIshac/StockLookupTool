@@ -39,14 +39,15 @@ public class SLTController {
     @FXML
     public void handleFavoriteStockInput(KeyEvent keyEvent) {
         if (keyEvent.getCode() == KeyCode.ENTER) {
+
             String stockSymbol = addFavoriteStockInput.getText();
 
             if (StockLookupTool.userFavoriteStocks.contains(stockSymbol)) {
                 return;
             }
 
-            ResponseManager.Data queryData = QueryManager.query(stockSymbol);
-            System.out.println(queryData.getQuery().getCount());
+            QueryManager queryManager = new QueryManager(stockSymbol);
+            ResponseManager.Data queryData = queryManager.query();
             ResponseManager.Quote stock = queryData.getQuery().getResults().getJSONQuote().toQuote();
 
             System.out.println(stock.getName());

@@ -3,10 +3,13 @@ package me.theeninja.stocklookuptool.stock;
 import me.theeninja.stocklookuptool.query.QueryManager;
 import me.theeninja.stocklookuptool.response.ResponseManager;
 
+import javax.xml.ws.Response;
 import java.util.AbstractMap;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 /**
@@ -19,10 +22,13 @@ import java.util.stream.Collectors;
  * must be recontructed on every launch.
  */
 public class StockDataManager {
+    public static final Logger logger = Logger.getLogger(StockDataManager.class.getSimpleName());
+
     Map<String                /* Symbol */,
         ResponseManager.Quote /* Associated Quote */> data = new HashMap<>();
 
     public void refreshAll() {
+        logger.log(Level.INFO, "Refreshing all symbol <-> stock entries.");
         for (String symbol : data.keySet()) {
             this.refresh(symbol);
         }
@@ -32,8 +38,19 @@ public class StockDataManager {
      * @param symbol The symbol associated with the quote to be refreshed.
      */
     public void refresh(String symbol) {
-        ResponseManager.Quote updatedQuote = QueryManager.query(symbol).getQuery().getResults().getJSONQuote().toQuote();
-        data.put(symbol, updatedQuote);
+        logger.log(Level.INFO, "Refreshing symbol: {0} <-> stock entry.", symbol);
+
+        QueryManager queryManager = new QueryManager(symbol);
+        ResponseManager.Data dataResponse = queryManager.query();
+
+        if (dataResponse != null) {
+            logger.log(Level.FINEST, "Applying successfully received response for symbol: {0} to symbol: {0}", symbol);
+            data.put(symbol, dataResponse.getQuery().getResults().getJSONQuote().toQuote());
+        }
+        else {
+            logger.log(Level.WARNING, "Response received for symbol: {0} is null. Aborting refresh operation.");
+        }
+
     }
 
     /**

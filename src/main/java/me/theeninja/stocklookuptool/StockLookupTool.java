@@ -11,6 +11,8 @@ import me.theeninja.stocklookuptool.stock.StockExchange;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Main class for the application; responsible for loading the stage.
@@ -18,6 +20,11 @@ import java.util.List;
  * @author TheeNinja
  */
 public class StockLookupTool extends Application {
+
+    /**
+     *
+     */
+    public static final Logger logger = Logger.getLogger(StockLookupTool.class.getSimpleName());
 
     /**
      * Represents application-wide name and tital.
@@ -36,6 +43,8 @@ public class StockLookupTool extends Application {
     @Override
     public void start(Stage stage) throws Exception {
 
+        logger.log(Level.INFO, "Starting StockLookupTool Application");
+
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/fxml/stocklookuptool.fxml"));
         Parent root = loader.load();
@@ -47,8 +56,8 @@ public class StockLookupTool extends Application {
         stage.setFullScreen(true);
         stage.show();
 
-        StockDataManager stockDataManager = new StockDataManager(StockExchange.NASDAQ);
-        System.out.println(stockDataManager.fetch("AAON").getYearHigh());
+        /* StockDataManager stockDataManager = new StockDataManager(StockExchange.NASDAQ);
+        System.out.println(stockDataManager.fetch("AAON").getYearHigh()); */
     }
 
     /**
@@ -56,5 +65,9 @@ public class StockLookupTool extends Application {
      */
     private void loadConfigurationData() {
         userFavoriteStocks = ConfigManager.getInstance().getFavoriteStockSymbols();
+    }
+
+    private static void setUpLogger() {
+        logger.setLevel(Level.ALL);
     }
 }
