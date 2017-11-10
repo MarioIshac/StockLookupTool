@@ -3,14 +3,14 @@ package me.theeninja.stocklookuptool.query;
 import com.google.gson.Gson;
 import me.theeninja.stocklookuptool.response.ResponseManager;
 import org.apache.commons.io.IOUtils;
+import org.apache.http.HttpRequest;
 import org.apache.http.client.utils.URIBuilder;
+import org.apache.http.protocol.HTTP;
 
 import java.io.*;
-import java.net.MalformedURLException;
-import java.net.URISyntaxException;
-import java.net.URL;
-import java.net.URLEncoder;
+import java.net.*;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -27,7 +27,8 @@ public class QueryManager {
     private String symbol;
 
     private final static Logger logger = Logger.getLogger(QueryManager.class.getSimpleName());
-    private final static String BASE_URL = "https://query.yahooapis.com/v1/public/yql";
+    private final static String BASE_URL = "https://api.tradier.com/v1/markets/quotes";
+    private final static String ACCESS_TOKEN = "FNbyAebHEKHISI2arduyLSXsZV89";
 
     public QueryManager(String symbol) {
         this.symbol = symbol;
@@ -35,19 +36,18 @@ public class QueryManager {
 
     public ResponseManager.Data query() {
         try {
-            String queryString = this.generateQueryString();
-
             URIBuilder uriBuilder = new URIBuilder(BASE_URL);
-            uriBuilder.addParameter("q", queryString);
-            uriBuilder.addParameter("format", "json");
-            uriBuilder.addParameter("env", "store://datatables.org/alltableswithkeys");
+            uriBuilder.addParameter("symbols", symbol);
 
-            String fullUrlString = uriBuilder.toString();
-            URL fullUrl = new URL(fullUrlString);
+            URL fullUrl = new URL(uriBuilder.toString());
+            URLConnection urlConnection = fullUrl.openConnection();
+            urlConnection.addRequestProperty("Accept-Charset", StandardCharsets.UTF_8.name());
+            urlConnection.addRequestProperty("Accept", "application/json");
+            urlConnection.addRequestProperty("Authorization", "Bearer " + ACCESS_TOKEN);
 
-            logger.log(Level.INFO, "Generted URL for query: {0}", fullUrlString);
+            logger.log(Level.INFO, "Generted URL for query: {0}", fullUrl.toString());
 
-            InputStream is = fullUrl.openStream();
+            InputStream is = urlConnection.getInputStream();
 
             Gson gson = new Gson();
             String jsonString = IOUtils.toString(is, "UTF-8");
@@ -60,11 +60,6 @@ public class QueryManager {
             e.printStackTrace();
         }
         return null;
-    }
-
-    private String generateQueryString() {
-
-        return "select * from yahoo.finance.quotes where symbol = \"" + symbol + "\"";
     }
 
     public static List<String> getAllSymbols(String stockExchange) {
