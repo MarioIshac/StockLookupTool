@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-<?import java.net.*?>
 
-<BorderPane fx:id="borderPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="me.theeninja.stocklookuptool.gui.SLTController">
+<BorderPane fx:id="borderPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="me.theeninja.stocklookuptool.gui.StockLookupToolApplicationController">
     <top>
         <HBox fx:id="topApplicationNavigation" prefWidth="600.0">
             <Label fx:id="stockSearchLabel" onMouseClicked="#handleStockSearchSelection" text="Stock Search" />
@@ -16,17 +17,8 @@
             <Label fx:id="settings" onMouseClicked="#handleSettingsSelection" text="Settings" />
         </HBox>
     </top>
-    <left>
-        <VBox fx:id="verticalStockList">
-            <Label fx:id="favoriteStocksLabel" text="Favorite Stocks" />
-            <TextField fx:id="addFavoriteStockInput" onKeyPressed="#handleFavoriteStockInput" promptText="Add" />
-        </VBox>
-    </left>
-    <center>
-        <GridPane fx:id="centerGridPane">
-
-        </GridPane>
-    </center>
+    <left />
+    <center />
     <stylesheets>
         <URL value="@/css/stocklookuptool.css" />
     </stylesheets>

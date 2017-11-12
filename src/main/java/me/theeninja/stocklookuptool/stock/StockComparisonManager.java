@@ -1,6 +1,6 @@
 package me.theeninja.stocklookuptool.stock;
 
-import me.theeninja.stocklookuptool.response.ResponseManager;
+import me.theeninja.stocklookuptool.response.Quote;
 
 import java.math.BigDecimal;
 import java.util.Comparator;
@@ -21,7 +21,7 @@ public class StockComparisonManager {
     /**
      * Represents the cached stocks used throughout the application for data retrieval.
      */
-    public List<ResponseManager.Quote> stocks;
+    public List<Quote> stocks;
 
     /**
      * Orders the provided stocks by assigning them a value based on the
@@ -30,28 +30,16 @@ public class StockComparisonManager {
      * @param evaluationCriteria The criteria used to sort the stocks.
      * @return
      */
-    public List<ResponseManager.Quote> orderBy(Function<ResponseManager.Quote, BigDecimal> evaluationCriteria) {
+    public List<Quote> orderBy(Function<Quote, BigDecimal> evaluationCriteria) {
         stocks.sort(Comparator.comparing(evaluationCriteria));
         return stocks;
     }
 
-    public List<ResponseManager.Quote> filter(Predicate<ResponseManager.Quote> criteria) {
+    public List<Quote> filter(Predicate<Quote> criteria) {
         return stocks.stream().filter(criteria).collect(Collectors.toList());
     }
 
-    public static String toPrint(int value) {
-        return value == 0 ? NOT_AVAILABLE : String.valueOf(value);
-    }
-
-    public static String toPrint(float value) {
-        return value == 0f ? NOT_AVAILABLE : String.valueOf(value);
-    }
-
-    public static String toPrint(Object value) {
-        return value == null ? NOT_AVAILABLE : value.toString();
-    }
-
-    public StockComparisonManager(List<ResponseManager.Quote> stocks) {
+    public StockComparisonManager(List<Quote> stocks) {
         this.stocks = stocks;
     }
 }

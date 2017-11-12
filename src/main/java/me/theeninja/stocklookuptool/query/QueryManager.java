@@ -1,16 +1,13 @@
 package me.theeninja.stocklookuptool.query;
 
 import com.google.gson.Gson;
-import me.theeninja.stocklookuptool.response.ResponseManager;
+import me.theeninja.stocklookuptool.response.QueryResponse;
 import org.apache.commons.io.IOUtils;
-import org.apache.http.HttpRequest;
 import org.apache.http.client.utils.URIBuilder;
-import org.apache.http.protocol.HTTP;
 
 import java.io.*;
 import java.net.*;
 import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -27,23 +24,19 @@ public class QueryManager {
     private String symbol;
 
     private final static Logger logger = Logger.getLogger(QueryManager.class.getSimpleName());
-    private final static String BASE_URL = "https://api.tradier.com/v1/markets/quotes";
-    private final static String ACCESS_TOKEN = "FNbyAebHEKHISI2arduyLSXsZV89";
+    private final static String BASE_URL = "https://query1.finance.yahoo.com/v7/finance/quote";
 
     public QueryManager(String symbol) {
         this.symbol = symbol;
     }
 
-    public ResponseManager.Data query() {
+    public QueryResponse query() {
         try {
             URIBuilder uriBuilder = new URIBuilder(BASE_URL);
             uriBuilder.addParameter("symbols", symbol);
 
             URL fullUrl = new URL(uriBuilder.toString());
             URLConnection urlConnection = fullUrl.openConnection();
-            urlConnection.addRequestProperty("Accept-Charset", StandardCharsets.UTF_8.name());
-            urlConnection.addRequestProperty("Accept", "application/json");
-            urlConnection.addRequestProperty("Authorization", "Bearer " + ACCESS_TOKEN);
 
             logger.log(Level.INFO, "Generted URL for query: {0}", fullUrl.toString());
 
@@ -51,7 +44,7 @@ public class QueryManager {
 
             Gson gson = new Gson();
             String jsonString = IOUtils.toString(is, "UTF-8");
-            ResponseManager.Data data = gson.fromJson(jsonString, ResponseManager.Data.class);
+            QueryResponse data = gson.fromJson(jsonString, QueryResponse.class);
 
             IOUtils.closeQuietly(is);
 

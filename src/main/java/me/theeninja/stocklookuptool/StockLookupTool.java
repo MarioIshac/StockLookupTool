@@ -6,8 +6,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import me.theeninja.stocklookuptool.config.ConfigManager;
-import me.theeninja.stocklookuptool.stock.StockDataManager;
-import me.theeninja.stocklookuptool.stock.StockExchange;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,7 +44,7 @@ public class StockLookupTool extends Application {
         logger.log(Level.INFO, "Starting StockLookupTool Application");
 
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("/fxml/stocklookuptool.fxml"));
+        loader.setLocation(getClass().getResource("/fxml/stock_lookup_tool_main.fxml"));
         Parent root = loader.load();
 
         Scene scene = new Scene(root, 250, 300);

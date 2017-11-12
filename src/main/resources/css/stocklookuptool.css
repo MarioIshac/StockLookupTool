@@ -29,6 +29,7 @@ Order of 4 = top right bottom left
 /* The Favorite Stock List */
 #borderPane #verticalStockList {
     -fx-background-color: lightgray;
+    -fx-padding: 5px;
 }
 
 #borderPane #verticalStockList #favoriteStocksLabel {
@@ -36,6 +37,15 @@ Order of 4 = top right bottom left
     -fx-padding: 5px;
 }
 
-#borderPane #verticalStockList #addFavoriteStockInput {
-    -fx-max-width: 100px;
+.stockIdentifierContainer {
+
+}
+
+.stockIdentifierDelete {
+    -fx-background-color: red;
+    -fx-background-radius: 10px;
+    -fx-min-width: 20px;
+    -fx-max-width: 20px;
+    -fx-min-height: 20px;
+    -fx-max-height: 20px;
 }
