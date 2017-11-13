@@ -44,8 +44,8 @@
             <resource>
                 <directory>${project.basedir}/src/main/resources</directory>
                 <includes>
-                    <include>fxml/*.fxml</include>
-                    <include>css/*.css</include>
+                    <include>**/*.fxml</include>
+                    <include>**/*.css</include>
                 </includes>
             </resource>
         </resources>

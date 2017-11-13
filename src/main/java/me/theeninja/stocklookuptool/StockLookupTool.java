@@ -6,6 +6,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import me.theeninja.stocklookuptool.config.ConfigManager;
+import me.theeninja.stocklookuptool.gui.selection.stocksearch.FavoriteStocksSidebarController;
 
 import java.util.ArrayList;
 import java.util.List;
