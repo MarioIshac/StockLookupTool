@@ -2,14 +2,18 @@ package me.theeninja.stocklookuptool.gui.selection;
 
 import javafx.scene.Node;
 import javafx.scene.layout.BorderPane;
+import me.theeninja.stocklookuptool.gui.selection.settings.ControlPanelController;
 
 public class SettingsSelection implements Selection {
+
+    private static SettingsSelection instance;
+
     /**
      * @return the {@link Node} to be placed in the left part of the {@link BorderPane}
      */
     @Override
     public Node getLeft() {
-        return null;
+        return ControlPanelController.getInstance().getCorrelatingView();
     }
 
     /**
@@ -34,5 +38,12 @@ public class SettingsSelection implements Selection {
     @Override
     public Node getBottom() {
         return null;
+    }
+
+    public static SettingsSelection getInstance() {
+        if (instance == null) {
+            instance = new SettingsSelection();
+        }
+        return instance;
     }
 }

@@ -1,35 +1,34 @@
 package me.theeninja.stocklookuptool.gui.selection.stocksearch;
 
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import me.theeninja.stocklookuptool.StockLookupTool;
+import me.theeninja.stocklookuptool.Utils;
 import me.theeninja.stocklookuptool.config.ConfigManager;
+import me.theeninja.stocklookuptool.gui.SingleViewController;
 import me.theeninja.stocklookuptool.query.QueryManager;
-import me.theeninja.stocklookuptool.response.QueryResponse;
 import me.theeninja.stocklookuptool.response.Quote;
 
-import java.io.IOException;
+import java.util.logging.Logger;
 
-public class FavoriteStocksSidebarController {
+public class FavoriteStocksSidebarController implements SingleViewController<VBox> {
+
+    private final Logger logger = Logger.getLogger(FavoriteStocksSidebarController.class.getSimpleName());
 
     // Inherited from favorite_stocks_sidebar.fxml
-    @FXML
-    public Label favoriteStocksLabel;
-    @FXML
-    public TextField addFavoriteStockInput;
-    @FXML
-    public VBox verticalStockList;
-    @FXML
-    public HBox addFavoriteStockInputContainer;
+    @FXML public Label favoriteStocksLabel;
+    @FXML public TextField addFavoriteStockInput;
+    @FXML public VBox verticalStockList;
+    @FXML public HBox addFavoriteStockInputContainer;
 
     private static FavoriteStocksSidebarController fxmlInstance;
 
@@ -37,32 +36,27 @@ public class FavoriteStocksSidebarController {
     public void handleFavoriteStockInput(KeyEvent keyEvent) {
         if (keyEvent.getCode() == KeyCode.ENTER) {
 
-            String stockSymbol = addFavoriteStockInput.getText();
+            String stockSymbol = addFavoriteStockInput.getText().toUpperCase();
 
             if (StockLookupTool.userFavoriteStocks.contains(stockSymbol)) {
                 return;
             }
 
-            QueryManager queryManager = new QueryManager(stockSymbol);
-            QueryResponse queryData = queryManager.query();
-            Quote stock = queryData.getQuoteResponse().getQuote().get(0);
+            Quote stock = QueryManager.getQuoteOf(stockSymbol);
 
             System.out.println(stock.getLongName());
 
-            Text stockIdentifier = new Text(addFavoriteStockInput.getText().toUpperCase());
+            Text stockIdentifier = new Text(stockSymbol);
             stockIdentifier.setFont(Font.font(18));
             stockIdentifier.getStyleClass().clear();
             stockIdentifier.getStyleClass().add("favoriteStock");
 
             addFavoriteStockInput.setText("");
 
-            stockIdentifier.setOnMouseEntered(mouseEvent -> {
-                StockInformationCenterController.getInstance().setDisplay(stock);
-            });
+            GridPane generatedDisplay = StockInformationCenterController.generatePane(stock);
 
-            stockIdentifier.setOnMouseExited(mouseEvent -> {
-                StockInformationCenterController.getInstance().clearDisplay();
-            });
+            stockIdentifier.setOnMouseEntered(mouseEvent -> StockInformationCenterController.getInstance().updateDisplay(generatedDisplay));
+            stockIdentifier.setOnMouseExited(mouseEvent -> StockInformationCenterController.getInstance().clearDisplay());
 
             verticalStockList.getChildren().remove(addFavoriteStockInput);
 
@@ -71,32 +65,31 @@ public class FavoriteStocksSidebarController {
 
             Button stockIdentifierDelete = new Button("X");
             stockIdentifierDelete.getStyleClass().add("stockIdentifierDelete");
-            stockIdentifierDelete.setOnAction(actionEvent -> {
-                verticalStockList.getChildren().remove(stockIdentifierDelete.getParent());
-            });
+
+            stockIdentifierDelete.setOnAction(actionEvent -> verticalStockList.getChildren().remove(stockIdentifierDelete.getParent()));
 
             stockIdentifierContainer.getStyleClass().add("stockIdentifierContainer");
-
             stockIdentifierContainer.getChildren().add(stockIdentifierDelete);
 
             verticalStockList.getChildren().add(stockIdentifierContainer);
             verticalStockList.getChildren().add(addFavoriteStockInput);
 
-            ConfigManager.getInstance().addFavoriteStockSymbol(stockIdentifier.getText());
+            ConfigManager.getInstance().addFavoriteStockSymbol(stockSymbol);
         }
     }
 
     public static FavoriteStocksSidebarController getInstance() {
         if (fxmlInstance == null) {
-            FXMLLoader fxmlLoader = new FXMLLoader();
-            fxmlLoader.setLocation(FavoriteStocksSidebarController.class.getResource("/fxml/stocksearch/favorite_stocks_sidebar.fxml"));
-            try {
-                fxmlLoader.load();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            fxmlInstance = fxmlLoader.getController();
+            fxmlInstance = Utils.getControllerInstance("/fxml/stocksearch/favorite_stocks_sidebar.fxml");
         }
         return fxmlInstance;
+    }
+
+    @Override
+    public VBox getCorrelatingView() {
+        if (verticalStockList == null) {
+            logger.warning("Variable verticalStockList is null. Contact developer.");
+        }
+        return verticalStockList;
     }
 }

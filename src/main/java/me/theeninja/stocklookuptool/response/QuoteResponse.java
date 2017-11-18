@@ -19,6 +19,10 @@ public class QuoteResponse {
         return quote;
     }
 
+    public Quote getSingleQuote() {
+        return this.getQuote().get(0);
+    }
+
     public Object getError() {
         return error;
     }

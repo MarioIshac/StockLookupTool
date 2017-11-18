@@ -4,10 +4,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import me.theeninja.stocklookuptool.gui.selection.NewsSelectionController;
 import me.theeninja.stocklookuptool.gui.selection.Selection;
-import me.theeninja.stocklookuptool.gui.selection.SettingsSelectionController;
-import me.theeninja.stocklookuptool.gui.selection.stocksearch.StockSearchSelection;
+import me.theeninja.stocklookuptool.gui.selection.SettingsSelection;
+import me.theeninja.stocklookuptool.gui.selection.StockSearchSelection;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -27,15 +26,9 @@ public class StockLookupToolApplicationController {
     @FXML public HBox topApplicationNavigation;
 
     @FXML
-    public void handleNewsSelection() {
-        logger.log(Level.INFO, "Setting GUI View to News");
-        setView(NewsSelectionController.getInstance());
-    }
-
-    @FXML
     public void handleSettingsSelection() {
         logger.log(Level.INFO, "Setting GUI View to Settings");;
-        setView(SettingsSelectionController.getInstance());
+        setView(SettingsSelection.getInstance());
     }
 
     @FXML

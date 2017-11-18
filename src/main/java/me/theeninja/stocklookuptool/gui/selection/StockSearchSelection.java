@@ -2,20 +2,19 @@ package me.theeninja.stocklookuptool.gui.selection;
 
 import javafx.scene.Node;
 import javafx.scene.layout.BorderPane;
+import me.theeninja.stocklookuptool.gui.selection.stocksearch.FavoriteStocksSidebarController;
+import me.theeninja.stocklookuptool.gui.selection.stocksearch.StockInformationCenterController;
 
-public class NewsSelectionController implements Selection {
+public class StockSearchSelection implements Selection {
 
-    private static NewsSelectionController newsSelectionController = new NewsSelectionController();
+    private static StockSearchSelection instance;
 
-    public static NewsSelectionController getInstance() {
-        return newsSelectionController;
-    }
     /**
      * @return the {@link Node} to be placed in the left part of the {@link BorderPane}
      */
     @Override
     public Node getLeft() {
-        return null;
+        return FavoriteStocksSidebarController.getInstance().getCorrelatingView();
     }
 
     /**
@@ -23,7 +22,7 @@ public class NewsSelectionController implements Selection {
      */
     @Override
     public Node getCenter() {
-        return null;
+        return StockInformationCenterController.getInstance().getCorrelatingView();
     }
 
     /**
@@ -40,5 +39,12 @@ public class NewsSelectionController implements Selection {
     @Override
     public Node getBottom() {
         return null;
+    }
+
+    public static StockSearchSelection getInstance() {
+        if (instance == null) {
+            instance = new StockSearchSelection();
+        }
+        return instance;
     }
 }

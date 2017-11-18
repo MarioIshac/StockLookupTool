@@ -8,7 +8,7 @@
     <top>
         <HBox fx:id="topApplicationNavigation" prefWidth="600.0">
             <Label fx:id="stockSearchLabel" onMouseClicked="#handleStockSearchSelection" text="Stock Search" />
-            <Label fx:id="newsLabel" onMouseClicked="#handleNewsSelection" text="News" />
+            <Label fx:id="newsLabel" text="News" />
             <Label fx:id="settings" onMouseClicked="#handleSettingsSelection" text="Settings" />
         </HBox>
     </top>

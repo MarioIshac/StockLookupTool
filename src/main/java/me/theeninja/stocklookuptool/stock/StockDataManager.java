@@ -27,9 +27,7 @@ public class StockDataManager {
 
     public void refreshAll() {
         logger.log(Level.INFO, "Refreshing all symbol <-> stock entries.");
-        for (String symbol : data.keySet()) {
-            this.refresh(symbol);
-        }
+        data.keySet().forEach(this::refresh);
     }
 
     /**
@@ -37,18 +35,7 @@ public class StockDataManager {
      */
     public void refresh(String symbol) {
         logger.log(Level.INFO, "Refreshing symbol: {0} <-> stock entry.", symbol);
-
-        QueryManager queryManager = new QueryManager(symbol);
-        QueryResponse dataResponse = queryManager.query();
-
-        if (dataResponse != null) {
-            logger.log(Level.FINEST, "Applying successfully received response for symbol: {0} to symbol: {0}", symbol);
-            data.put(symbol, dataResponse.getQuoteResponse().getQuote().get(0));
-        }
-        else {
-            logger.log(Level.WARNING, "QueryResponse received for symbol: {0} is null. Aborting refresh operation.");
-        }
-
+        data.put(symbol, QueryManager.getQuoteOf(symbol));
     }
 
     /**
@@ -63,10 +50,7 @@ public class StockDataManager {
      * @param symbols The list of symbols to be accounted for in the data.
      */
     public StockDataManager(List<String> symbols) {
-        System.out.println(symbols);
-        for (String symbol : symbols) {
-            this.refresh(symbol);
-        }
+        symbols.forEach(this::refresh);
     }
 
     public StockDataManager(StockExchange stockExchange) {

@@ -2,6 +2,7 @@ package me.theeninja.stocklookuptool.query;
 
 import com.google.gson.Gson;
 import me.theeninja.stocklookuptool.response.QueryResponse;
+import me.theeninja.stocklookuptool.response.Quote;
 import org.apache.commons.io.IOUtils;
 import org.apache.http.client.utils.URIBuilder;
 
@@ -26,11 +27,11 @@ public class QueryManager {
     private final static Logger logger = Logger.getLogger(QueryManager.class.getSimpleName());
     private final static String BASE_URL = "https://query1.finance.yahoo.com/v7/finance/quote";
 
-    public QueryManager(String symbol) {
+    private QueryManager(String symbol) {
         this.symbol = symbol;
     }
 
-    public QueryResponse query() {
+    private QueryResponse query() {
         try {
             URIBuilder uriBuilder = new URIBuilder(BASE_URL);
             uriBuilder.addParameter("symbols", symbol);
@@ -92,5 +93,9 @@ public class QueryManager {
         }
 
         return symbols;
+    }
+
+    public static Quote getQuoteOf(String symbol) {
+        return new QueryManager(symbol).query().getQuoteResponse().getSingleQuote();
     }
 }
