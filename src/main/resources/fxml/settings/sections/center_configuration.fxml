@@ -6,8 +6,4 @@
           fx:controller="me.theeninja.stocklookuptool.gui.selection.settings.CenterConfigurationController"
           prefHeight="400.0" prefWidth="600.0"
           fx:id="centerConfigurationDisplay">
-    <!--
-        Serves as a container for data given by the application. Therefore, during declaration,
-        no content associated yet.
-    -->
 </FlowPane>

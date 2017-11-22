@@ -2,6 +2,7 @@ package me.theeninja.stocklookuptool.gui.selection;
 
 import javafx.scene.Node;
 import javafx.scene.layout.BorderPane;
+import me.theeninja.stocklookuptool.gui.selection.settings.CenterConfigurationController;
 import me.theeninja.stocklookuptool.gui.selection.settings.ControlPanelController;
 
 public class SettingsSelection implements Selection {
@@ -21,7 +22,7 @@ public class SettingsSelection implements Selection {
      */
     @Override
     public Node getCenter() {
-        return null;
+        return CenterConfigurationController.getInstance().getCorrelatingView();
     }
 
     /**

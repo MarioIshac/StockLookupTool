@@ -8,6 +8,8 @@ import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
 import me.theeninja.stocklookuptool.gui.SingleViewController;
 
+import java.io.IOException;
+
 /**
  * Provides helper methods that assist in the functionality of this application.
  *
@@ -29,6 +31,12 @@ public final class Utils {
     public static <T extends SingleViewController> T getControllerInstance(String fxmlFile) {
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(Utils.class.getResource(fxmlFile));
+        try {
+            fxmlLoader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         return fxmlLoader.getController();
     }
 

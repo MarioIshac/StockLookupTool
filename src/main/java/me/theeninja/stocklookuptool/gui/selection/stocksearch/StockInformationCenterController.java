@@ -9,25 +9,48 @@ import me.theeninja.stocklookuptool.response.Quote;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Logger;
 
-public class StockInformationCenterController implements DependentController<GridPane> {
+/**
+ * @author TheeNinja
+ */
+public class StockInformationCenterController implements DependentController<GridPane, Map<Label, Integer[]>> {
 
+    /**
+     * The logger for {@link StockInformationCenterController}. Used for logging information regarding
+     * management of the stock information display.
+     */
+    private static Logger logger = Logger.getLogger(StockInformationCenterController.class.getSimpleName());
+
+    /**
+     * The container of the stock information that is to be presented to the user.
+     */
     @FXML public GridPane stockInformationCenter;
 
     private static StockInformationCenterController fxmlInstance;
 
+    @Override
     public void clearDisplay() {
+        logger.info("Clearing display.");
         stockInformationCenter.getChildren().clear();
     }
 
     @Override
-    public void updateDisplay(GridPane pane) {
-
+    public void updateDisplay(Map<Label, Integer[]> labelMap) {
+        clearDisplay();
+        logger.info("Updating display with received labels and their respective placements.");
+        for (Map.Entry<Label, Integer[]> entry : labelMap.entrySet()) {
+            stockInformationCenter.add(entry.getKey(),
+                    entry.getValue()[0],  // Column Index
+                    entry.getValue()[1],  // Row Index
+                    entry.getValue()[2],  // Column Span
+                    entry.getValue()[3]); // Row Span
+        }
     }
 
-    public static GridPane generatePane(Quote stock) {
-        GridPane generatedPane = new GridPane();
-        
+    static Map<Label, Integer[]> generateLabelMap(Quote stock) {
+        logger.info("Generating label map of stock " + stock);
+
         Map<Label, Integer[]> labelMap = new HashMap<>();
 
         labelMap.put(new Label(                        stock.getLongName()),               new Integer[] {0, 0, 2, 1}); // Company Name
@@ -43,20 +66,12 @@ public class StockInformationCenterController implements DependentController<Gri
             label.getStyleClass().add("favoriteStockInformationLabel");
         }
 
-        for (Map.Entry<Label, Integer[]> entry : labelMap.entrySet()) {
-            generatedPane.add(entry.getKey(),
-                    entry.getValue()[0],  // Column Index
-                    entry.getValue()[1],  // Row Index
-                    entry.getValue()[2],  // Column Span
-                    entry.getValue()[3]); // Row Span
-        }
-
-        return generatedPane;
+        return labelMap;
     }
 
     public static StockInformationCenterController getInstance() {
         if (fxmlInstance == null) {
-            return Utils.getControllerInstance("/fxml/stocksearch/stock_information_center.fxml");
+            fxmlInstance = Utils.getControllerInstance("/fxml/stocksearch/stock_information_center.fxml");
         }
         return fxmlInstance;
     }

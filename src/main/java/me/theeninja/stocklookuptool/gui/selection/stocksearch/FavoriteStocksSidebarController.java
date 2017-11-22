@@ -18,6 +18,7 @@ import me.theeninja.stocklookuptool.gui.SingleViewController;
 import me.theeninja.stocklookuptool.query.QueryManager;
 import me.theeninja.stocklookuptool.response.Quote;
 
+import java.util.Map;
 import java.util.logging.Logger;
 
 public class FavoriteStocksSidebarController implements SingleViewController<VBox> {
@@ -53,9 +54,9 @@ public class FavoriteStocksSidebarController implements SingleViewController<VBo
 
             addFavoriteStockInput.setText("");
 
-            GridPane generatedDisplay = StockInformationCenterController.generatePane(stock);
+            Map<Label, Integer[]> generatedLabelMap = StockInformationCenterController.generateLabelMap(stock);
 
-            stockIdentifier.setOnMouseEntered(mouseEvent -> StockInformationCenterController.getInstance().updateDisplay(generatedDisplay));
+            stockIdentifier.setOnMouseEntered(mouseEvent -> StockInformationCenterController.getInstance().updateDisplay(generatedLabelMap));
             stockIdentifier.setOnMouseExited(mouseEvent -> StockInformationCenterController.getInstance().clearDisplay());
 
             verticalStockList.getChildren().remove(addFavoriteStockInput);

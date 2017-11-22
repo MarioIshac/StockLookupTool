@@ -3,8 +3,7 @@
 <?import javafx.scene.layout.FlowPane?>
 <FlowPane xmlns="http://javafx.com/javafx"
           xmlns:fx="http://javafx.com/fxml"
-          fx:controller="me.theeninja.stocklookuptool.gui.selection.settings.sections.TechnicalAnalysisSectionController"
+          fx:controller="me.theeninja.stocklookuptool.gui.selection.settings.sections.technicalanalysis.WeightSubsectionController"
           prefHeight="400.0" prefWidth="600.0"
-          fx:id="technicalAnalysisWeightConfigurationSubsection">
-
+          fx:id="weightSubsectionContainer">
 </FlowPane>

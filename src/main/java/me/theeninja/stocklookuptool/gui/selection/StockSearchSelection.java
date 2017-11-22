@@ -5,6 +5,11 @@ import javafx.scene.layout.BorderPane;
 import me.theeninja.stocklookuptool.gui.selection.stocksearch.FavoriteStocksSidebarController;
 import me.theeninja.stocklookuptool.gui.selection.stocksearch.StockInformationCenterController;
 
+/**
+ * The provider of the views to be displayed when the Stock Search navigation option
+ * is selected to be displayed.
+ * @author TheeNinja
+ */
 public class StockSearchSelection implements Selection {
 
     private static StockSearchSelection instance;

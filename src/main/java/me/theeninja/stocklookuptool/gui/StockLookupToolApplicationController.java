@@ -15,7 +15,6 @@ public class StockLookupToolApplicationController {
 
     private static StockLookupToolApplicationController stockLookupToolApplicationController = new StockLookupToolApplicationController();
 
-    public static final String EMPTY_TEXT = "";
     private Logger logger = Logger.getLogger(StockLookupToolApplicationController.class.getSimpleName());
 
     @FXML public Label stockSearchLabel;
@@ -27,13 +26,13 @@ public class StockLookupToolApplicationController {
 
     @FXML
     public void handleSettingsSelection() {
-        logger.log(Level.INFO, "Setting GUI View to Settings");;
+        logger.info("Setting GUI View to Settings");;
         setView(SettingsSelection.getInstance());
     }
 
     @FXML
     public void handleStockSearchSelection() {
-        logger.log(Level.INFO, "Setting GUI View to Stock Search");
+        logger.info("Setting GUI View to Stock Search");
         setView(StockSearchSelection.getInstance());
     }
 
