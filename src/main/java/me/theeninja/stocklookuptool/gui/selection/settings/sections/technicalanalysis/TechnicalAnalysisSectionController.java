@@ -14,6 +14,8 @@ public class TechnicalAnalysisSectionController implements SingleViewController<
     public static TechnicalAnalysisSectionController getInstance() {
         if (fxmlInstance == null) {
             fxmlInstance = Utils.getControllerInstance(Utils.FXML_SETTINGS_SECTIONS_DIRECTORY + "technical_analysis/technical_analysis_section.fxml");
+            System.out.println(fxmlInstance.getClass().getSimpleName() + ": " + fxmlInstance.getCorrelatingView().getChildrenUnmodifiable().size());
+
         }
         return fxmlInstance;
     }

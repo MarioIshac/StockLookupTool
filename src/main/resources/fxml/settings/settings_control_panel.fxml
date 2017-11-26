@@ -3,14 +3,13 @@
 <?import javafx.scene.control.TreeItem?>
 <?import javafx.scene.control.TreeView?>
 <?import javafx.scene.layout.VBox?>
-<VBox xmlns="http://javafx.com/javafx"
-      xmlns:fx="http://javafx.com/fxml"
-      fx:controller="me.theeninja.stocklookuptool.gui.selection.settings.ControlPanelController"
-      prefHeight="400.0" prefWidth="600.0"
-      fx:id="settingsControlPanel">
-    <TreeView fx:id="settingsControlPanelTreeView">
-        <TreeItem fx:id="dummyRoot">
 
-        </TreeItem>
-    </TreeView>
-</VBox>
+
+<TreeView xmlns="http://javafx.com/javafx"
+          xmlns:fx="http://javafx.com/fxml"
+          fx:id="settingsControlPanel"
+          fx:controller="me.theeninja.stocklookuptool.gui.selection.settings.ControlPanelController"
+          prefHeight="Infinity"
+          maxWidth="200">
+    <TreeItem fx:id="dummyRoot"/>
+</TreeView>

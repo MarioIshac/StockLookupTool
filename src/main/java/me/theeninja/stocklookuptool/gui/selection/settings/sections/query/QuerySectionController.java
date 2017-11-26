@@ -12,6 +12,8 @@ public class QuerySectionController implements SingleViewController<FlowPane> {
     public static QuerySectionController getInstance() {
         if (fxmlInstance == null) {
             fxmlInstance = Utils.getControllerInstance(Utils.FXML_SETTINGS_SECTIONS_DIRECTORY + "query/query_section.fxml");
+            System.out.println(fxmlInstance.getClass().getSimpleName() + ": " + fxmlInstance.getCorrelatingView().getChildrenUnmodifiable().size());
+
         }
         return fxmlInstance;
     }

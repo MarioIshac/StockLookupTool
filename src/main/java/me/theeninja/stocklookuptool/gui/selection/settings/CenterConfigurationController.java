@@ -1,15 +1,22 @@
 package me.theeninja.stocklookuptool.gui.selection.settings;
 
+import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.control.Hyperlink;
+import javafx.scene.control.Label;
 import javafx.scene.control.TreeView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 import me.theeninja.stocklookuptool.Utils;
 import me.theeninja.stocklookuptool.gui.DependentController;
 import me.theeninja.stocklookuptool.gui.selection.settings.sections.technicalanalysis.TechnicalAnalysisSectionController;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -21,7 +28,7 @@ import java.util.logging.Logger;
  *
  * @author TheeNinja
  */
-public class CenterConfigurationController implements DependentController<FlowPane, SettingSection> {
+public class CenterConfigurationController implements DependentController<AnchorPane, SettingSection> {
 
     private Logger logger = Logger.getLogger(CenterConfigurationController.class.getSimpleName());
     /**
@@ -34,7 +41,7 @@ public class CenterConfigurationController implements DependentController<FlowPa
      * Represents the display that houses all the nodes used to communicate configuration options
      * to the application user.
      */
-    @FXML public FlowPane centerConfigurationDisplay;
+    @FXML public AnchorPane centerConfigurationDisplay;
 
     /**
      *
@@ -42,13 +49,13 @@ public class CenterConfigurationController implements DependentController<FlowPa
      */
     public static CenterConfigurationController getInstance() {
         if (fxmlInstance == null) {
-            fxmlInstance = Utils.getControllerInstance(Utils.FXML_SETTINGS_SECTIONS_DIRECTORY + "center_configuration.fxml");
+            fxmlInstance = Utils.getControllerInstance(Utils.FXML_SETTINGS_DIRECTORY + "center_configuration.fxml");
         }
         return fxmlInstance;
     }
 
     @Override
-    public FlowPane getCorrelatingView() {
+    public AnchorPane getCorrelatingView() {
         return centerConfigurationDisplay;
     }
 
@@ -59,11 +66,7 @@ public class CenterConfigurationController implements DependentController<FlowPa
 
     @Override
     public void updateDisplay(SettingSection settingSection) {
-        logger.log(Level.INFO, "Updated display to suit {0} configuration.", settingSection.getRepresentation());
-        // clearDisplay();
-        List<Node> a = settingSection.getCorrelatedFXMLController().getCorrelatingView().getChildrenUnmodifiable();
-        System.out.println("Number of children: " + a.size());
-        System.out.println("Number of children of technical analysis: " + TechnicalAnalysisSectionController.getInstance().getCorrelatingView().getChildrenUnmodifiable().size());
-        getCorrelatingView().getChildren().addAll(a);
+        this.clearDisplay();
+        this.getCorrelatingView().getChildren().add(settingSection.getCorrelatedFXMLController().getCorrelatingView());
     }
 }

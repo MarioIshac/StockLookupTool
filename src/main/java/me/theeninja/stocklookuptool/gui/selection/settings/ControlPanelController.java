@@ -7,6 +7,7 @@ import javafx.scene.control.TreeView;
 import javafx.scene.layout.VBox;
 import me.theeninja.stocklookuptool.Utils;
 import me.theeninja.stocklookuptool.gui.SingleViewController;
+import me.theeninja.stocklookuptool.gui.selection.settings.sections.technicalanalysis.TechnicalAnalysisSectionController;
 
 import java.net.URL;
 import java.util.Optional;
@@ -14,9 +15,8 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class ControlPanelController implements Initializable, SingleViewController<VBox> {
-    @FXML public VBox settingsControlPanel;
-    @FXML public TreeView<String> settingsControlPanelTreeView;
+public class ControlPanelController implements Initializable, SingleViewController<TreeView<String>> {
+    @FXML public TreeView<String> settingsControlPanel;
 
     private static ControlPanelController fxmlInstance;
 
@@ -47,19 +47,21 @@ public class ControlPanelController implements Initializable, SingleViewControll
 
         dummyRoot.getChildren().addAll(technicalAnalysis, appearence, query);
 
-        settingsControlPanelTreeView.setShowRoot(false);
-        settingsControlPanelTreeView.setEditable(true);
+        settingsControlPanel.setShowRoot(false);
+        settingsControlPanel.setEditable(true);
 
         CenterConfigurationController.getInstance().clearDisplay();
 
-        settingsControlPanelTreeView.getSelectionModel().selectedItemProperty().addListener(((observable, oldValue, newValue) -> {
+        settingsControlPanel.getSelectionModel().selectedItemProperty().addListener(((observable, oldValue, newValue) -> {
             logger.log(Level.INFO,
                     "Switching center configuration display to {0} configuration", newValue.getValue());
+            System.out.println("1) Number of children of technical analysis: " + TechnicalAnalysisSectionController.getInstance().getCorrelatingView().getChildrenUnmodifiable().size());
 
             SettingSection previousSettingSection;
             if (oldValue != null) {
                 previousSettingSection = SettingSection.getEnum(oldValue.getValue());
             }
+            System.out.println("2) Number of children of technical analysis: " + TechnicalAnalysisSectionController.getInstance().getCorrelatingView().getChildrenUnmodifiable().size());
 
             SettingSection selectedSettingSection = SettingSection.getEnum(newValue.getValue());
             if (selectedSettingSection != null) {
@@ -69,7 +71,7 @@ public class ControlPanelController implements Initializable, SingleViewControll
     }
 
     @Override
-    public VBox getCorrelatingView() {
+    public TreeView<String> getCorrelatingView() {
         return settingsControlPanel;
     }
 }

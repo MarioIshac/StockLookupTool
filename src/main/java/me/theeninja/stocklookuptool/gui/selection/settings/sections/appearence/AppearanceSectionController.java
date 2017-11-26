@@ -11,6 +11,7 @@ public class AppearanceSectionController implements SingleViewController<FlowPan
     public static AppearanceSectionController getInstance() {
         if (fxmlInstance == null) {
             fxmlInstance = Utils.getControllerInstance(Utils.FXML_SETTINGS_SECTIONS_DIRECTORY + "appearance/appearance_section.fxml");
+            System.out.println(fxmlInstance.getClass().getSimpleName() + ": " + fxmlInstance.getCorrelatingView().getChildrenUnmodifiable().size());
         }
         return fxmlInstance;
     }

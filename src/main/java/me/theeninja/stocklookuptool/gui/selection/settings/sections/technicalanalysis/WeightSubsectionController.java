@@ -11,6 +11,7 @@ public class WeightSubsectionController implements SingleViewController<FlowPane
     public static WeightSubsectionController getInstance() {
         if (fxmlInstance == null) {
             fxmlInstance = Utils.getControllerInstance(Utils.FXML_SETTINGS_SECTIONS_DIRECTORY + "technical_analysis/weight_subsection.fxml");
+            System.out.println(fxmlInstance.getClass().getSimpleName() + ": " + fxmlInstance.getCorrelatingView().getChildrenUnmodifiable().size());
         }
         return fxmlInstance;
     }
